@@ -3,9 +3,7 @@ const app = express();
 const PORT = 3000;
 
 
-app.get("/user", (req,res)=>{
-    res.send("Haaaaaaa");
-})
+
 
 app.get("/user", (req,res)=>{
     res.send({firstName:"Ajit", lastName:"Kumar"});
