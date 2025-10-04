@@ -2,18 +2,25 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-// Middleware to parse JSON bodies
-app.use(express.json());
 
-// GET API — returns a greeting
-app.get('/api/greet', (req, res) => {
-  res.json({ message: 'Hello, Abhijit! Welcome to your Express server.' });
-});
+app.get("/user", (req,res)=>{
+    res.send("Haaaaaaa");
+})
 
-// POST API — receives user data
-app.post('/api/user', (req, res) => {
-  const { name, age } = req.body;
-  res.json({ message: `Received user: ${name}, age ${age}` });
+app.get("/user", (req,res)=>{
+    res.send({firstName:"Ajit", lastName:"Kumar"});
+})
+
+app.post("/user", (req,res)=>{
+    res.send("Data successfully saved to the database!");
+})
+
+app.delete("/user",(req,res)=>{
+    res.send("Data successfully deleted from the database");
+})
+
+app.use("/",(req,res)=>{
+    res.send("Namaste Ajit");
 });
 
 // Start the server
