@@ -2,21 +2,30 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
+// yaha pe  middleware token ke sath verify kar skta hai
+app.use("/admin", (req,res,next)=>{
+    console.log("Admin auth is getting checked");
+    const token = "xyz";
+    const isAdminAuthorised = token ==="xyz";
 
-//app.use("/route",RH1,RH2,RH3,RH4,RH5);
-//RH: Route handler
-// To go one route handler to another route handler we need to pass next as argument and call this argument in route handler
+    if(!isAdminAuthorised){
+        res.status(401).send("Unauthorized request");
+    }else{
+        next();
+    }
 
+});
 
-app.use("/user",(req,res,next)=>{
-     next();
-    res.send("response 1");
-   
+app.get("/user",(req,res)=>{
+    res.send("User Data sent");
+});
 
-},
-(req,res,next)=>{
+app.get("/admin/getAllData", (req,res)=>{
+    res.send("All Data Sent");
+})
 
-    res.send("response 2");
+app.get("/admin/deleteUser",(req,res)=>{
+    res.send("Deleted a User");
 })
 
 
