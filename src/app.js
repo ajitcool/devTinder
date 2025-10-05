@@ -3,20 +3,15 @@ const app = express();
 const PORT = 3000;
 
 // yaha pe  middleware token ke sath verify kar skta hai
-app.use("/admin", (req,res,next)=>{
-    console.log("Admin auth is getting checked");
-    const token = "xyz";
-    const isAdminAuthorised = token ==="xyz";
+const {adminAuth,userAuth}= require("./middlewares/auth");
+app.use("/admin", adminAuth);
 
-    if(!isAdminAuthorised){
-        res.status(401).send("Unauthorized request");
-    }else{
-        next();
-    }
+app.post("/user/login",(req,res)=>{
+    res.send("user logged in successfully!");
+})
 
-});
-
-app.get("/user",(req,res)=>{
+// middle ware for user is userAuth
+app.get("/user/data",userAuth,(req,res)=>{
     res.send("User Data sent");
 });
 
