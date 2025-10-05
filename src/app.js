@@ -3,24 +3,22 @@ const app = express();
 const PORT = 3000;
 
 // yaha pe  middleware token ke sath verify kar skta hai
-const {adminAuth,userAuth}= require("./middlewares/auth");
-app.use("/admin", adminAuth);
-
-app.post("/user/login",(req,res)=>{
-    res.send("user logged in successfully!");
-})
-
-// middle ware for user is userAuth
-app.get("/user/data",userAuth,(req,res)=>{
-    res.send("User Data sent");
+app.use("/",(err,req,res,next)=>{
+    if(err){
+        res.status(500).send("Something went wrong");
+    }
 });
 
-app.get("/admin/getAllData", (req,res)=>{
-    res.send("All Data Sent");
-})
+app.get("/getUserData", (req,res)=>{
+    try{
+        //Logic of DB call and get user data
+        res.status(200).send("user data  from getUserData route")
 
-app.get("/admin/deleteUser",(req,res)=>{
-    res.send("Deleted a User");
+    }catch(err){
+
+        res.status(500).send("some Error contact support team");
+
+    }
 })
 
 
